@@ -1,0 +1,21 @@
+package lab2.trigonometric;
+
+import lab2.Calculator;
+
+public class CotCalculator extends Calculator {
+
+    private final SinCalculator sin;
+    private final CosCalculator cos;
+
+    public CotCalculator(double accuracy, SinCalculator sin, CosCalculator cos) {
+        super(accuracy);
+        this.sin = sin;
+        this.cos = cos;
+    }
+
+    public double calculate(double x) {
+        double cot = cos.calculate(x) / sin.calculate(x);
+        return Double.isFinite(cot) ? cot : Double.POSITIVE_INFINITY;
+    }
+
+}
