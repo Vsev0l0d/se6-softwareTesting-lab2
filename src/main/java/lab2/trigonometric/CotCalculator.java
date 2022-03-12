@@ -14,6 +14,8 @@ public class CotCalculator extends Calculator {
     }
 
     public double calculate(double x) {
+        if (Math.abs(x % Math.PI) < accuracy) return Double.POSITIVE_INFINITY;
+
         double cot = cos.calculate(x) / sin.calculate(x);
         return Double.isFinite(cot) ? cot : Double.POSITIVE_INFINITY;
     }
