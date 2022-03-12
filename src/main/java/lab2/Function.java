@@ -12,12 +12,12 @@ public class Function extends Calculator {
     private final CotCalculator cot;
     private final LnCalculator ln;
     private final LogBaseCalculator log2;
-    private final LogBaseCalculator log5;
     private final LogBaseCalculator log3;
+    private final LogBaseCalculator log5;
 
     public Function(double accuracy, SinCalculator sin, CosecCalculator cosec, SecCalculator sec,
                     TanCalculator tan, CotCalculator cot, LnCalculator ln, LogBaseCalculator log2,
-                    LogBaseCalculator log5, LogBaseCalculator log3) {
+                    LogBaseCalculator log3, LogBaseCalculator log5) {
         super(accuracy);
         this.sin = sin;
         this.cosec = cosec;
@@ -26,8 +26,8 @@ public class Function extends Calculator {
         this.cot = cot;
         this.ln = ln;
         this.log2 = log2;
-        this.log5 = log5;
         this.log3 = log3;
+        this.log5 = log5;
     }
 
     public double calculate(double x) {
