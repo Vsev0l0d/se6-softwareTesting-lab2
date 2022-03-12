@@ -7,7 +7,7 @@ import static java.lang.Math.PI;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class LogMock {
+public class LogMocks {
     public static LnCalculator getLnMock() {
         LnCalculator m = mock(LnCalculator.class);
 

@@ -19,14 +19,14 @@ public class Log5Test {
     @ParameterizedTest
     @CsvFileSource(resources = "/log5_test_data.csv")
     public void tableValuesStubsTest(double expected, double num, double den) {
-        log5 = new LogBaseCalculator(ACCURACY, 5, LogMock.getLnMock());
+        log5 = new LogBaseCalculator(ACCURACY, 5, LogMocks.getLnMock());
         double actual = log5.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
 
     @Test
     public void nanStubsTest() {
-        log5 = new LogBaseCalculator(ACCURACY, 5, LogMock.getLnMock());
+        log5 = new LogBaseCalculator(ACCURACY, 5, LogMocks.getLnMock());
         double expected = Double.NaN;
         double actual = log5.calculate(Double.NaN);
         assertEquals(expected, actual, DELTA);
@@ -34,7 +34,7 @@ public class Log5Test {
 
     @Test
     public void positiveInfinityStubsTest() {
-        log5 = new LogBaseCalculator(ACCURACY, 5, LogMock.getLnMock());
+        log5 = new LogBaseCalculator(ACCURACY, 5, LogMocks.getLnMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = log5.calculate(Double.POSITIVE_INFINITY);
         assertEquals(expected, actual, DELTA);
@@ -42,7 +42,7 @@ public class Log5Test {
 
     @Test
     public void negativeInfinityStubsTest() {
-        log5 = new LogBaseCalculator(ACCURACY, 5, LogMock.getLnMock());
+        log5 = new LogBaseCalculator(ACCURACY, 5, LogMocks.getLnMock());
         double expected = Double.NaN;
         double actual = log5.calculate(Double.NEGATIVE_INFINITY);
         assertEquals(expected, actual, DELTA);

@@ -2,7 +2,7 @@ package lab2;
 
 import lab2.logariphmic.LnCalculator;
 import lab2.logariphmic.LogBaseCalculator;
-import lab2.logariphmic.LogMock;
+import lab2.logariphmic.LogMocks;
 import lab2.trigonometric.*;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -17,22 +17,36 @@ public class FunctionTest {
     private static final double DELTA = 0.05;
     private static final double ACCURACY = 0.0001;
 
+    private final SinCalculator sinMock = TrigonometryMocks.getSinMock();
+    private final CosCalculator cosMock = TrigonometryMocks.getCosMock();
+    private final CosecCalculator cosecMock = TrigonometryMocks.getCosecMock();
+    private final SecCalculator secMock = TrigonometryMocks.getSecMock();
+    private final TanCalculator tanMock = TrigonometryMocks.getTanMock();
+    private final CotCalculator cotMock = TrigonometryMocks.getCotMock();
+    private final LnCalculator lnMock = LogMocks.getLnMock();
+    private final LogBaseCalculator log2Mock = LogMocks.getLog2Mock();
+    private final LogBaseCalculator log3Mock = LogMocks.getLog3Mock();
+    private final LogBaseCalculator log5Mock = LogMocks.getLog5Mock();
+
+    private final SinCalculator sin = new SinCalculator(ACCURACY);
+    private final CosCalculator cos = new CosCalculator(ACCURACY, sin);
+    private final CosecCalculator cosec = new CosecCalculator(ACCURACY, sin);
+    private final SecCalculator sec = new SecCalculator(ACCURACY, cos);
+    private final TanCalculator tan = new TanCalculator(ACCURACY, sin, cos);
+    private final CotCalculator cot = new CotCalculator(ACCURACY, sin, cos);
+    private final LnCalculator ln = new LnCalculator(ACCURACY);
+    private final LogBaseCalculator log2 = new LogBaseCalculator(ACCURACY, 2, ln);
+    private final LogBaseCalculator log3 = new LogBaseCalculator(ACCURACY, 3, ln);
+    private final LogBaseCalculator log5 = new LogBaseCalculator(ACCURACY, 5, ln);
+
     private Function function;
 
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void stubsTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = TrigonometryMocks.getSecMock();
-        TanCalculator tan = TrigonometryMocks.getTanMock();
-        CotCalculator cot = TrigonometryMocks.getCotMock();
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
-
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secMock, tanMock, cotMock, lnMock, log2Mock, log3Mock, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -40,17 +54,11 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void log2StubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = TrigonometryMocks.getSecMock();
-        TanCalculator tan = TrigonometryMocks.getTanMock();
-        CotCalculator cot = TrigonometryMocks.getCotMock();
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = new LogBaseCalculator(ACCURACY, 2, ln);
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
+        LogBaseCalculator log2Stub = new LogBaseCalculator(ACCURACY, 2, lnMock);
 
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secMock, tanMock, cotMock, lnMock, log2Stub, log3Mock, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -58,17 +66,11 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void log3StubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = TrigonometryMocks.getSecMock();
-        TanCalculator tan = TrigonometryMocks.getTanMock();
-        CotCalculator cot = TrigonometryMocks.getCotMock();
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = new LogBaseCalculator(ACCURACY, 3, ln);
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
+        LogBaseCalculator log3Stub = new LogBaseCalculator(ACCURACY, 3, lnMock);
 
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secMock, tanMock, cotMock, lnMock, log2Mock, log3Stub, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -76,17 +78,11 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void log5StubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = TrigonometryMocks.getSecMock();
-        TanCalculator tan = TrigonometryMocks.getTanMock();
-        CotCalculator cot = TrigonometryMocks.getCotMock();
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = new LogBaseCalculator(ACCURACY, 5, ln);
+        LogBaseCalculator log5Stub = new LogBaseCalculator(ACCURACY, 5, lnMock);
 
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secMock, tanMock, cotMock, lnMock, log2Mock, log3Mock, log5Stub
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -94,17 +90,9 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void lnStubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = TrigonometryMocks.getSecMock();
-        TanCalculator tan = TrigonometryMocks.getTanMock();
-        CotCalculator cot = TrigonometryMocks.getCotMock();
-        LnCalculator ln = new LnCalculator(ACCURACY);
-        LogBaseCalculator log2 = new LogBaseCalculator(ACCURACY, 2, ln);
-        LogBaseCalculator log3 = new LogBaseCalculator(ACCURACY, 3, ln);
-        LogBaseCalculator log5 = new LogBaseCalculator(ACCURACY, 5, ln);
-
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secMock, tanMock, cotMock, ln, log2, log3, log5
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -112,17 +100,11 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void cosecStubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = new CosecCalculator(ACCURACY, sin);
-        SecCalculator sec = TrigonometryMocks.getSecMock();
-        TanCalculator tan = TrigonometryMocks.getTanMock();
-        CotCalculator cot = TrigonometryMocks.getCotMock();
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
+        CosecCalculator cosecStub = new CosecCalculator(ACCURACY, sinMock);
 
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecStub, secMock, tanMock, cotMock, lnMock, log2Mock, log3Mock, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -130,17 +112,11 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void secStubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = new SecCalculator(ACCURACY, TrigonometryMocks.getCosMock());
-        TanCalculator tan = TrigonometryMocks.getTanMock();
-        CotCalculator cot = TrigonometryMocks.getCotMock();
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
+        SecCalculator secStub = new SecCalculator(ACCURACY, cosMock);
 
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secStub, tanMock, cotMock, lnMock, log2Mock, log3Mock, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -148,17 +124,11 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void tanStubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = TrigonometryMocks.getSecMock();
-        TanCalculator tan = new TanCalculator(ACCURACY, sin, TrigonometryMocks.getCosMock());
-        CotCalculator cot = TrigonometryMocks.getCotMock();
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
+        TanCalculator tanStub = new TanCalculator(ACCURACY, sinMock, cosMock);
 
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secMock, tanStub, cotMock, lnMock, log2Mock, log3Mock, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -166,17 +136,11 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void cotStubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = TrigonometryMocks.getSecMock();
-        TanCalculator tan = TrigonometryMocks.getTanMock();
-        CotCalculator cot = new CotCalculator(ACCURACY, sin, TrigonometryMocks.getCosMock());
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
+        CotCalculator cotStub = new CotCalculator(ACCURACY, sinMock, cosMock);
 
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secMock, tanMock, cotStub, lnMock, log2Mock, log3Mock, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -184,18 +148,14 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void cosStubTest(double expected, double num, double den) {
-        SinCalculator sin = TrigonometryMocks.getSinMock();
-        CosCalculator cos = new CosCalculator(ACCURACY, sin);
-        CosecCalculator cosec = TrigonometryMocks.getCosecMock();
-        SecCalculator sec = new SecCalculator(ACCURACY, cos);
-        TanCalculator tan = new TanCalculator(ACCURACY, sin, cos);
-        CotCalculator cot = new CotCalculator(ACCURACY, sin, cos);
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
+        CosCalculator cosStub = new CosCalculator(ACCURACY, sinMock);
+        SecCalculator secStub = new SecCalculator(ACCURACY, cosStub);
+        TanCalculator tanStub = new TanCalculator(ACCURACY, sinMock, cosStub);
+        CotCalculator cotStub = new CotCalculator(ACCURACY, sinMock, cosStub);
 
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sinMock, cosecMock, secStub, tanStub, cotStub, lnMock, log2Mock, log3Mock, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -204,18 +164,9 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void sinStubTest(double expected, double num, double den) {
-        SinCalculator sin = new SinCalculator(ACCURACY);
-        CosCalculator cos = new CosCalculator(ACCURACY, sin);
-        CosecCalculator cosec = new CosecCalculator(ACCURACY, sin);
-        SecCalculator sec = new SecCalculator(ACCURACY, cos);
-        TanCalculator tan = new TanCalculator(ACCURACY, sin, cos);
-        CotCalculator cot = new CotCalculator(ACCURACY, sin, cos);
-        LnCalculator ln = LogMock.getLnMock();
-        LogBaseCalculator log2 = LogMock.getLog2Mock();
-        LogBaseCalculator log3 = LogMock.getLog3Mock();
-        LogBaseCalculator log5 = LogMock.getLog5Mock();
-
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sin, cosec, sec, tan, cot, lnMock, log2Mock, log3Mock, log5Mock
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
@@ -223,18 +174,9 @@ public class FunctionTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/function_test_data.csv")
     public void allStubTest(double expected, double num, double den) {
-        SinCalculator sin = new SinCalculator(ACCURACY);
-        CosCalculator cos = new CosCalculator(ACCURACY, sin);
-        CosecCalculator cosec = new CosecCalculator(ACCURACY, sin);
-        SecCalculator sec = new SecCalculator(ACCURACY, cos);
-        TanCalculator tan = new TanCalculator(ACCURACY, sin, cos);
-        CotCalculator cot = new CotCalculator(ACCURACY, sin, cos);
-        LnCalculator ln = new LnCalculator(ACCURACY);
-        LogBaseCalculator log2 = new LogBaseCalculator(ACCURACY, 2, ln);
-        LogBaseCalculator log3 = new LogBaseCalculator(ACCURACY, 3, ln);
-        LogBaseCalculator log5 = new LogBaseCalculator(ACCURACY, 5, ln);
-
-        function = new Function(ACCURACY, sin, cosec, sec, tan, cot, ln, log2, log3, log5);
+        function = new Function(ACCURACY,
+                sin, cosec, sec, tan, cot, ln, log2, log3, log5
+        );
         double actual = function.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
