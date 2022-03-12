@@ -84,7 +84,7 @@ public class TrigonometryMocks {
         return m;
     }
 
-    public static SecCalculator getSecMock() { // todo
+    public static SecCalculator getSecMock() {
         SecCalculator m = mock(SecCalculator.class);
 
         MockChain.when(m)
@@ -139,7 +139,6 @@ public class TrigonometryMocks {
 
         MockChain.when(m)
                 .mock(m.calculate(PI / 2), Double.POSITIVE_INFINITY)
-                .mock(m.calculate(PI / 2), Double.POSITIVE_INFINITY)
                 .mock(m.calculate(- PI / 2), Double.POSITIVE_INFINITY)
                 .mock(m.calculate(PI), 0.0)
                 .mock(m.calculate(2 * PI), 0.0)
@@ -168,36 +167,35 @@ public class TrigonometryMocks {
         return m;
     }
 
-    public static CotCalculator getCotMock() { // todo
+    public static CotCalculator getCotMock() {
         CotCalculator m = mock(CotCalculator.class);
 
-//        MockChain.when(m)
-//                .mock(m.calculate(PI / 2), Double.POSITIVE_INFINITY)
-//                .mock(m.calculate(PI / 2), Double.POSITIVE_INFINITY)
-//                .mock(m.calculate(- PI / 2), Double.POSITIVE_INFINITY)
-//                .mock(m.calculate(PI), 0.0)
-//                .mock(m.calculate(2 * PI), 0.0)
-//                .mock(m.calculate(-PI), 0.0)
-//                .mock(m.calculate(1 * PI / 6), 0.5773502691896257)
-//                .mock(m.calculate(1 * PI / 4), 0.9999999999999999)
-//                .mock(m.calculate(1 * PI / 3), 1.7320508075688767)
-//                .mock(m.calculate(2 * PI / 3), -1.7320508075688783)
-//                .mock(m.calculate(3 * PI / 4), -1.0000000000000002)
-//                .mock(m.calculate(5 * PI / 6), -0.5773502691896257)
-//                .mock(m.calculate(7 * PI / 6), 0.5773502691896254)
-//                .mock(m.calculate(5 * PI / 4), 0.9999999999999997)
-//                .mock(m.calculate(4 * PI / 3), 1.7320508075688754)
-//                .mock(m.calculate(5 * PI / 3), -1.732050807568877)
-//                .mock(m.calculate(7 * PI / 4), -1.0000000000000004)
-//                .mock(m.calculate(11 * PI / 6), -0.5773502691896265)
-//                .mock(m.calculate(-1 * PI / 4), -0.9999999999999999)
-//                .mock(m.calculate(-3 * PI / 4), 1.0000000000000002)
-//                .mock(m.calculate(-5 * PI / 4), -0.9999999999999997)
-//                .mock(m.calculate(-7 * PI / 4), 1.0000000000000004);
-//
-//        when(m.calculate(Double.POSITIVE_INFINITY)).thenReturn(NaN);
-//        when(m.calculate(Double.NEGATIVE_INFINITY)).thenReturn(NaN);
-//        when(m.calculate(NaN)).thenReturn(NaN);
+        MockChain.when(m)
+                .mock(m.calculate(PI / 2), 0.0)
+                .mock(m.calculate(- PI / 2), 0.0)
+                .mock(m.calculate(PI), Double.POSITIVE_INFINITY)
+                .mock(m.calculate(2 * PI), Double.POSITIVE_INFINITY)
+                .mock(m.calculate(-PI), Double.POSITIVE_INFINITY)
+                .mock(m.calculate(1 * PI / 6), 1.7320508075688774)
+                .mock(m.calculate(1 * PI / 4), 0.9999999999999999)
+                .mock(m.calculate(1 * PI / 3), 0.577350269189626)
+                .mock(m.calculate(2 * PI / 3), -0.5773502691896254)
+                .mock(m.calculate(3 * PI / 4), -1.0000000000000002)
+                .mock(m.calculate(5 * PI / 6), -1.7320508075688756)
+                .mock(m.calculate(7 * PI / 6), 1.7320508075688783)
+                .mock(m.calculate(5 * PI / 4), 0.9999999999999997)
+                .mock(m.calculate(4 * PI / 3), 0.5773502691896264)
+                .mock(m.calculate(5 * PI / 3), -0.5773502691896247)
+                .mock(m.calculate(7 * PI / 4), -1.0000000000000004)
+                .mock(m.calculate(11 * PI / 6), -1.7320508075688716)
+                .mock(m.calculate(-1 * PI / 4), -0.9999999999999999)
+                .mock(m.calculate(-3 * PI / 4), 1.0000000000000002)
+                .mock(m.calculate(-5 * PI / 4), -0.9999999999999997)
+                .mock(m.calculate(-7 * PI / 4), 1.0000000000000004);
+
+        when(m.calculate(Double.POSITIVE_INFINITY)).thenReturn(NaN);
+        when(m.calculate(Double.NEGATIVE_INFINITY)).thenReturn(NaN);
+        when(m.calculate(NaN)).thenReturn(NaN);
 
         return m;
     }
