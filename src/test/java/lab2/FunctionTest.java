@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.TestInstance.Lifecycle.PER_CLASS;
 @TestInstance(value = PER_CLASS)
 public class FunctionTest {
     private static final double DELTA = 0.05;
-    private static final double ACCURACY = 0.0001;
+    private static final double ACCURACY = 0.00001;
 
     private final SinCalculator sinMock = TrigonometryMocks.getSinMock();
     private final CosCalculator cosMock = TrigonometryMocks.getCosMock();
