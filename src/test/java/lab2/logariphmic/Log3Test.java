@@ -14,19 +14,17 @@ public class Log3Test {
     private static final double DELTA = 0.05;
     private static final double ACCURACY = 0.001;
 
-    private LogBaseCalculator log3;
+    private final LogBaseCalculator log3 = new LogBaseCalculator(ACCURACY, 3, LogMocks.getLnMock());
 
     @ParameterizedTest
     @CsvFileSource(resources = "/log3_test_data.csv")
     public void tableValuesStubsTest(double expected, double num, double den) {
-        log3 = new LogBaseCalculator(ACCURACY, 3, LogMocks.getLnMock());
         double actual = log3.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
 
     @Test
     public void nanStubsTest() {
-        log3 = new LogBaseCalculator(ACCURACY, 3, LogMocks.getLnMock());
         double expected = Double.NaN;
         double actual = log3.calculate(Double.NaN);
         assertEquals(expected, actual, DELTA);
@@ -34,7 +32,6 @@ public class Log3Test {
 
     @Test
     public void positiveInfinityStubsTest() {
-        log3 = new LogBaseCalculator(ACCURACY, 3, LogMocks.getLnMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = log3.calculate(Double.POSITIVE_INFINITY);
         assertEquals(expected, actual, DELTA);
@@ -42,7 +39,6 @@ public class Log3Test {
 
     @Test
     public void negativeInfinityStubsTest() {
-        log3 = new LogBaseCalculator(ACCURACY, 3, LogMocks.getLnMock());
         double expected = Double.NaN;
         double actual = log3.calculate(Double.NEGATIVE_INFINITY);
         assertEquals(expected, actual, DELTA);

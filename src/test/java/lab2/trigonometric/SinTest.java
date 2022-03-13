@@ -14,19 +14,17 @@ public class SinTest {
     private static final double DELTA = 0.05;
     private static final double ACCURACY = 0.0001;
 
-    private SinCalculator sin;
+    private final SinCalculator sin = new SinCalculator(ACCURACY);
 
     @ParameterizedTest
     @CsvFileSource(resources = "/sin_test_data.csv")
     public void tableValuesStubsTest(double expected, double num, double den) {
-        sin = new SinCalculator(ACCURACY);
         double actual = sin.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
 
     @Test
     public void nanStubsTest() {
-        sin = new SinCalculator(ACCURACY);
         double expected = Double.NaN;
         double actual = sin.calculate(Double.NaN);
         assertEquals(expected, actual, DELTA);
@@ -34,7 +32,6 @@ public class SinTest {
 
     @Test
     public void positiveInfinityStubsTest() {
-        sin = new SinCalculator(ACCURACY);
         double expected = Double.NaN;
         double actual = sin.calculate(Double.POSITIVE_INFINITY);
         assertEquals(expected, actual, DELTA);
@@ -42,7 +39,6 @@ public class SinTest {
 
     @Test
     public void negativeInfinityStubsTest() {
-        sin = new SinCalculator(ACCURACY);
         double expected = Double.NaN;
         double actual = sin.calculate(Double.NEGATIVE_INFINITY);
         assertEquals(expected, actual, DELTA);

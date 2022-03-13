@@ -14,19 +14,19 @@ public class CotTest {
     private static final double DELTA = 0.05;
     private static final double ACCURACY = 0.001;
 
-    private CotCalculator cot;
+    private final CotCalculator cot = new CotCalculator(
+            ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock()
+    );
 
     @ParameterizedTest
     @CsvFileSource(resources = "/cot_test_data.csv")
     public void tableValuesStubsTest(double expected, double num, double den) {
-        cot = new CotCalculator(ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock());
         double actual = cot.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
 
     @Test
     public void nanStubsTest() {
-        cot = new CotCalculator(ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = cot.calculate(Double.NaN);
         assertEquals(expected, actual, DELTA);
@@ -34,7 +34,6 @@ public class CotTest {
 
     @Test
     public void positiveInfinityStubsTest() {
-        cot = new CotCalculator(ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = cot.calculate(Double.POSITIVE_INFINITY);
         assertEquals(expected, actual, DELTA);
@@ -42,7 +41,6 @@ public class CotTest {
 
     @Test
     public void negativeInfinityStubsTest() {
-        cot = new CotCalculator(ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = cot.calculate(Double.NEGATIVE_INFINITY);
         assertEquals(expected, actual, DELTA);

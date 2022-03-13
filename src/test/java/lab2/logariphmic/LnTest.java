@@ -14,19 +14,17 @@ public class LnTest {
     private static final double DELTA = 0.05;
     private static final double ACCURACY = 0.001;
 
-    private LnCalculator ln;
+    private final LnCalculator ln = new LnCalculator(ACCURACY);
 
     @ParameterizedTest
     @CsvFileSource(resources = "/ln_test_data.csv")
     public void tableValuesTest(double expected, double num, double den) {
-        ln = new LnCalculator(ACCURACY);
         double actual = ln.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
 
     @Test
     public void nanStubsTest() {
-        ln = new LnCalculator(ACCURACY);
         double expected = Double.NaN;
         double actual = ln.calculate(Double.NaN);
         assertEquals(expected, actual, DELTA);
@@ -34,7 +32,6 @@ public class LnTest {
 
     @Test
     public void positiveInfinityStubsTest() {
-        ln = new LnCalculator(ACCURACY);
         double expected = Double.POSITIVE_INFINITY;
         double actual = ln.calculate(Double.POSITIVE_INFINITY);
         assertEquals(expected, actual, DELTA);
@@ -42,7 +39,6 @@ public class LnTest {
 
     @Test
     public void negativeInfinityStubsTest() {
-        ln = new LnCalculator(ACCURACY);
         double expected = Double.NaN;
         double actual = ln.calculate(Double.NEGATIVE_INFINITY);
         assertEquals(expected, actual, DELTA);

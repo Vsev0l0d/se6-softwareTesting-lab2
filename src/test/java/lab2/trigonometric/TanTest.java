@@ -14,19 +14,19 @@ public class TanTest {
     private static final double DELTA = 0.05;
     private static final double ACCURACY = 0.001;
 
-    private TanCalculator tan;
+    private final TanCalculator tan = new TanCalculator(
+            ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock()
+    );
 
     @ParameterizedTest
     @CsvFileSource(resources = "/tan_test_data.csv")
     public void tableValuesStubsTest(double expected, double num, double den) {
-        tan = new TanCalculator(ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock());
         double actual = tan.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
 
     @Test
     public void nanStubsTest() {
-        tan = new TanCalculator(ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = tan.calculate(Double.NaN);
         assertEquals(expected, actual, DELTA);
@@ -34,7 +34,6 @@ public class TanTest {
 
     @Test
     public void positiveInfinityStubsTest() {
-        tan = new TanCalculator(ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = tan.calculate(Double.POSITIVE_INFINITY);
         assertEquals(expected, actual, DELTA);
@@ -42,7 +41,6 @@ public class TanTest {
 
     @Test
     public void negativeInfinityStubsTest() {
-        tan = new TanCalculator(ACCURACY, TrigonometryMocks.getSinMock(), TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = tan.calculate(Double.NEGATIVE_INFINITY);
         assertEquals(expected, actual, DELTA);

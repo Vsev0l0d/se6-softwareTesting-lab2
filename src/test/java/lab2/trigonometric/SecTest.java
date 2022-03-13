@@ -14,19 +14,17 @@ public class SecTest {
     private static final double DELTA = 0.05;
     private static final double ACCURACY = 0.001;
 
-    private SecCalculator sec;
+    private final SecCalculator sec = new SecCalculator(ACCURACY, TrigonometryMocks.getCosMock());
 
     @ParameterizedTest
     @CsvFileSource(resources = "/sec_test_data.csv")
     public void tableValuesStubsTest(double expected, double num, double den) {
-        sec = new SecCalculator(ACCURACY, TrigonometryMocks.getCosMock());
         double actual = sec.calculate(num * PI / den);
         assertEquals(expected, actual, DELTA);
     }
 
     @Test
     public void nanStubsTest() {
-        sec = new SecCalculator(ACCURACY, TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = sec.calculate(Double.NaN);
         assertEquals(expected, actual, DELTA);
@@ -34,7 +32,6 @@ public class SecTest {
 
     @Test
     public void positiveInfinityStubsTest() {
-        sec = new SecCalculator(ACCURACY, TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = sec.calculate(Double.POSITIVE_INFINITY);
         assertEquals(expected, actual, DELTA);
@@ -42,7 +39,6 @@ public class SecTest {
 
     @Test
     public void negativeInfinityStubsTest() {
-        sec = new SecCalculator(ACCURACY, TrigonometryMocks.getCosMock());
         double expected = Double.POSITIVE_INFINITY;
         double actual = sec.calculate(Double.NEGATIVE_INFINITY);
         assertEquals(expected, actual, DELTA);
